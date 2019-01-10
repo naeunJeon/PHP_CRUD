@@ -7,12 +7,11 @@
  */
 
 include('../index.php');
-include('../php/dbInfo.php');
 
 ?>
 
 <div class="main ui container">
-    <div class="column">
+    <div class="column" id="view-data">
         <!-- 데이터 -->
     </div>
     <br>
@@ -21,9 +20,6 @@ include('../php/dbInfo.php');
 
 <script>
     loadData();
-    var dataObj;
-    var count = 0;
-    const viewitem = $('.column');
 
     /* 게시글 읽어옴 */
     function loadData(){
@@ -33,8 +29,7 @@ include('../php/dbInfo.php');
             timeout: 3000,
             cache : false,
             success: function(result) {
-                dataObj = JSON.parse(result);
-                createDataList(dataObj)
+                createDataList(result);
             },
             error: function(request,status,error){
                 alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
@@ -42,13 +37,13 @@ include('../php/dbInfo.php');
         });
     }
 
-    function createDataList(dataObj) {
-        for(var i=0; i<dataObj.length; i++) {
+    function createDataList(result) {
+        for(var i=0; i<result.length; i++) {
             //console.log(dataObj[i].idx);
-            $('.column').append('<div class=\"ui fluid vertical menu\">\n' +
-                '    <a class="item" id="post_num'+ i + '" + href="../php/readPost.php?id='+dataObj[i].idx+'">\n' +
-                '        <h1 class="ui medium header">'+dataObj[i].title+'</h1>\n' +
-                '        <p>'+dataObj[i].contents+'</p>\n' +
+            $('#view-data').append('<div class=\"ui fluid vertical menu\">\n' +
+                '    <a class="item" id="post_num'+ i + '" + href="../php/readPost.php?id='+result[i].idx+'">\n' +
+                '        <h1 class="ui medium header">'+result[i].title+'</h1>\n' +
+                '        <p>'+result[i].contents+'</p>\n' +
                 '    </a>\n' +
                 '</div>' ) ;
         }
