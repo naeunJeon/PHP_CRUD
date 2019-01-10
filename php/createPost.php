@@ -40,8 +40,13 @@ $('#save').click(function () {
         type : "POST",
         datatype : "json",
         contentType: 'application/json',
+        timeout : 3000,
+        cache : false,
         success: function(result) {
             console.log(result);
+        },
+        error: function(request,status,error){
+            alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
         }
     });
 });

@@ -30,9 +30,14 @@ include('../php/dbInfo.php');
         $.ajax({
             url : "/php/listPost_proc.php",
             type : "GET",
+            timeout: 3000,
+            cache : false,
             success: function(result) {
                 dataObj = JSON.parse(result);
                 createDataList(dataObj)
+            },
+            error: function(request,status,error){
+                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
             }
         });
     }
