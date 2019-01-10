@@ -6,8 +6,24 @@
  * Time: 오후 1:15
  */
 include('../index.php');
-$value = json_decode(file_get_contents("php://input"), true);
-echo json_encode($value);
+include('../php/dbInfo.php');
+
+$flag = true;
+$name = "";
+$title = "";
+$contents = "";
+
+if( isset($_GET['id'])){
+    $idx = $_GET['id'];
+    $sql = 'SELECT * FROM post WHERE idx=' .$idx;
+    $selectedData = $dbconn->query($sql);
+    $selectedData = $selectedData->fetchAll(PDO::FETCH_NAMED);
+
+    $name = $selectedData[0]["name"];
+    $title = $selectedData[0]["title"];
+    $contents = $selectedData[0]["contents"];
+}
+
 
 ?>
 
@@ -15,15 +31,15 @@ echo json_encode($value);
     <form class="ui form" id="submit_form">
         <div class="field">
             <label>Name</label>
-            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="name" placeholder="Name" value="<?=$name?>">
         </div>
         <div class="field">
             <label>Title</label>
-            <input type="text" name="title" placeholder="Title">
+            <input type="text" name="title" placeholder="Title" value="<?=$title?>">
         </div>
         <div class="field">
             <label>Text</label>
-            <textarea name="contents"id="contents"></textarea>
+            <textarea name="contents"id="contents"><?=$contents?></textarea>
         </div>
     </form>
     <br>
@@ -34,6 +50,7 @@ echo json_encode($value);
 <script>
 
 $('#save').click(function () {
+
     var data = $("#submit_form").form('get values');
     var jsondata = JSON.stringify(data);
     console.log(jsondata);

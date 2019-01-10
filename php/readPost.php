@@ -13,7 +13,6 @@ $sql = 'SELECT * FROM post WHERE idx=' .$idx;
 $selectedData = $dbconn->query($sql);
 $selectedData = $selectedData->fetchAll(PDO::FETCH_NAMED);
 
-$idx = $selectedData[0]["idx"];
 $name = $selectedData[0]["name"];
 $title = $selectedData[0]["title"];
 $contents = $selectedData[0]["contents"];
@@ -36,7 +35,7 @@ $jsondata = json_encode($selectedData);
             </div>
             <div class="extra content">
                 <div class="ui two buttons">
-                    <div class="ui basic green button" id="edit">수정하기</div>
+                    <div class="ui basic green button" onclick ="location.href='../php/createPost.php?id=<?=$idx?>'">수정하기</div>
                     <div class="ui basic red button" onclick="location.href='../php/listPost.php'">목록으로</div>
                 </div>
             </div>
