@@ -24,7 +24,6 @@ if( isset($_GET['id'])){
     $contents = $selectedData[0]["contents"];
 }
 
-
 ?>
 
 <div class="main ui container">
