@@ -6,6 +6,9 @@
  * Time: 오후 1:15
  */
 include('../index.php');
+$value = json_decode(file_get_contents("php://input"), true);
+echo json_encode($value);
+
 ?>
 
 <div class="main ui container">

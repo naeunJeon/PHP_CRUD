@@ -11,12 +11,14 @@ include('../php/dbInfo.php');
 $idx = $_GET['id'];
 $sql = 'SELECT * FROM post WHERE idx=' .$idx;
 $selectedData = $dbconn->query($sql);
-$jsonData = $selectedData->fetchAll(PDO::FETCH_NAMED);
+$selectedData = $selectedData->fetchAll(PDO::FETCH_NAMED);
 
-$name = $jsonData[0]["name"];
-$title = $jsonData[0]["title"];
-$contents = $jsonData[0]["contents"];
+$idx = $selectedData[0]["idx"];
+$name = $selectedData[0]["name"];
+$title = $selectedData[0]["title"];
+$contents = $selectedData[0]["contents"];
 
+$jsondata = json_encode($selectedData);
 ?>
 <div class="main ui container">
     <div class="ui cards">
@@ -41,10 +43,24 @@ $contents = $jsonData[0]["contents"];
         </div>
     </div>
 </div>
-
 <script>
     $('#edit').click(function () {
-
+        var data = JSON.stringify(<?=$jsondata?>);
+        //console.log(data);
+        $.ajax({
+            url : "/php/createPost.php",
+            type : "POST",
+            data : data,
+            timeout: 3000,
+            cache : false,
+            success: function(result) {
+                //console.log(result);
+                location.href='../php/createPost.php'
+            },
+            error: function(request,status,error){
+                alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+            }
+        });
     });
 </script>
 
