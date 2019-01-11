@@ -49,7 +49,6 @@ if( isset($_GET['id'])){
 <script>
 
 $('#save').click(function () {
-
     var data = $("#submit_form").form('get values');
     var jsondata = JSON.stringify(data);
     console.log(jsondata);
