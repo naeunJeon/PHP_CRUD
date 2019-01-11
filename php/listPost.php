@@ -11,11 +11,12 @@ include('../index.php');
 ?>
 
 <div class="main ui container">
+    <div class>
+    <button type="button" class = "ui basic button" onclick="location.href='../php/createPost.php'">글쓰기</button>
+    <br>
     <div class="column" id="view-data">
         <!-- 데이터 -->
     </div>
-    <br>
-    <button type="button" class = "ui basic button" onclick="location.href='../php/createPost.php'">글쓰기</button>
 </div>
 
 <script>
