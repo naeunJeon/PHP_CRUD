@@ -9,6 +9,7 @@
 include('../php/dbInfo.php');
 
 $sEmail = $_POST['email'];
+echo $sEmail;
 
 /*$sql = 'SELECT * FROM post';
 

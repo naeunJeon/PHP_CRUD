@@ -7,7 +7,7 @@
  */
 include('../index.php');
 include('../php/dbInfo.php');
-
+include('../resource/js/commonAjax.js');
 ?>
 <div class="main ui container">
     <form class="ui form" id="join_form">
@@ -44,53 +44,15 @@ include('../php/dbInfo.php');
 <script>
     $('#duplicCheck').click(function () {
         var sEmail = $('input[name=email]').val();
-        sUrl = "/php/emailCheck.php";
-        commonAjax(sEmail, sUrl);
+        var sUrl = "/php/emailCheck.php";
+        var oData = {email:sEmail};
+        postAjax(oData, sUrl);
     });
 
     $('#join').click(function () {
         var data = $("#join_form").form('get values');
         var jsondata = JSON.stringify(data);
-        welAjax(jsondata);
-    });
-
-    function welAjax(jsondata) {
-        var type = "POST";
         var url = "/php/join_proc.php";
-
-        $.ajax({
-            url: url,
-            data: jsondata,
-            type: type,
-            datatype: "json",
-            contentType: 'application/json',
-            timeout: 3000,
-            cache: false,
-            success: function (result) {
-                location.href = '../php/loginForm.php'
-            },
-            error: function (request, status, error) {
-                alert("code = " + request.status + " message = " + request.responseText + " error = " + error);
-            }
-        });
-    }
-
-    function commonAjax(data, sUrl) {
-        $.ajax({
-            url: sUrl,
-            data: {email : data},
-            type: "POST",
-            timeout: 3000,
-            cache: false,
-            success: function (result) {
-                alert(result);
-                //location.href = '../php/loginForm.php'
-            },
-            error: function (request, status, error) {
-                alert("code = " + request.status + " message = " + request.responseText + " error = " + error);
-            }
-        });
-    }
-
-
+        postAjax(jsondata, sUrl);
+    });
 </script>
