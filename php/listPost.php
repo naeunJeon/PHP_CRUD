@@ -6,7 +6,7 @@
  * Time: 오후 2:38
  */
 
-include('../index.php');
+require_once('../index.php');
 
 ?>
 
