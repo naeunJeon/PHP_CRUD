@@ -7,7 +7,6 @@
  */
 include('../index.php');
 include('../php/dbInfo.php');
-include('../resource/js/commonAjax.js');
 ?>
 <div class="main ui container">
     <form class="ui form" id="join_form">
@@ -46,13 +45,16 @@ include('../resource/js/commonAjax.js');
         var sEmail = $('input[name=email]').val();
         var sUrl = "/php/emailCheck.php";
         var oData = {email:sEmail};
-        postAjax(oData, sUrl);
+        postAjax(oData, sUrl, (sSuccess) => function (result) {
+            alert(result);
+        });
     });
 
     $('#join').click(function () {
         var data = $("#join_form").form('get values');
         var jsondata = JSON.stringify(data);
-        var url = "/php/join_proc.php";
-        postAjax(jsondata, sUrl);
+        var sUrl = "/php/join_proc.php";
+        postAjax(jsondata, sUrl, (sSuccess) => {location.href = '/php/loginForm.php'});
     });
 </script>
+<script src="/resource/js/commonAjax.js"></script>

@@ -9,11 +9,7 @@
 include('../php/dbInfo.php');
 
 $sEmail = $_POST['email'];
-echo $sEmail;
 
-/*$sql = 'SELECT * FROM post';
-
-$totalData = $dbconn->query($sql);
-$jsonData = $totalData->fetchAll(PDO::FETCH_NAMED);
-
-echo json_encode($jsonData);*/
+$stmt = $dbconn->query("SELECT count(*) FROM member_info WHERE email='".$sEmail."'");
+$user = $stmt->fetchColumn();
+echo $user;
