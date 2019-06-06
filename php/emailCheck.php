@@ -10,6 +10,7 @@ include('../php/dbInfo.php');
 
 $sEmail = $_POST['email'];
 
-$stmt = $dbconn->query("SELECT count(*) FROM member_info WHERE email='".$sEmail."'");
-$user = $stmt->fetchColumn();
-echo $user;
+$stmt = $dbconn->query("SELECT count(*) FROM member_info WHERE :email");
+$stmt->bindParam(':email',$sEmail);
+//$user = $stmt->fetchColumn();
+//echo $user;

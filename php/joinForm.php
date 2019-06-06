@@ -9,7 +9,7 @@ include('../index.php');
 include('../php/dbInfo.php');
 ?>
 <div class="main ui container">
-    <form class="ui form" id="join_form">
+    <form class="ui form" id="join_form" method="post">
         <div class="field">
             <label>Name</label>
             <input type="text" name="name" placeholder="NAME">
@@ -45,7 +45,7 @@ include('../php/dbInfo.php');
         var sEmail = $('input[name=email]').val();
         var sUrl = "/php/emailCheck.php";
         var oData = {email:sEmail};
-        postAjax(oData, sUrl, (sSuccess) => function (result) {
+        postAjax(oData, sUrl, function (result) {
             alert(result);
         });
     });
@@ -54,7 +54,7 @@ include('../php/dbInfo.php');
         var data = $("#join_form").form('get values');
         var jsondata = JSON.stringify(data);
         var sUrl = "/php/join_proc.php";
-        postAjax(jsondata, sUrl, (sSuccess) => {location.href = '/php/loginForm.php'});
+        postAjax(jsondata, sUrl, (fSuccess) => {location.href = '/php/loginForm.php'});
     });
 </script>
 <script src="/resource/js/commonAjax.js"></script>
