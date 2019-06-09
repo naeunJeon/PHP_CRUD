@@ -10,17 +10,11 @@ include('../php/dbInfo.php');
 
 $sEmail = $_POST['email'];
 
-$stmt = $dbconn->prepare('SELECT idx FROM member_info WHERE eamil=:email');
+$stmt = $dbconn->prepare('SELECT idx FROM member_info WHERE email=:email LIMIT 1');
 $stmt->bindParam(':email',$sEmail);
 
 $stmt->execute();
-//$stmt->fetch(PDO::FETCH_NAMED);
-
-
-//var_dump($stmt);
-/*if($stmt->fetch(PDO::FETCH_NAMED)==0)
-    $result = true;
+if($stmt->fetch(PDO::FETCH_NAMED)==false)
+    echo true;
 else
-    $result = false;*/
-
-var_dump($stmt->fetch(PDO::FETCH_NAMED));
+    echo false;

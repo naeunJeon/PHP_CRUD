@@ -24,9 +24,10 @@ include('../php/dbInfo.php');
                 <button id="duplicCheck" class="ui button" type="button">중복확인</button>
             </div>
             </div>
+            <label id="email_check_txt"></label>
         </div>
         <div class="field">
-            <label>Password</label>
+            <label'>Password</label>
             <input type="password" name="pw" placeholder="PASSWORD">
         </div>
         <div class="field">
@@ -41,20 +42,31 @@ include('../php/dbInfo.php');
 </div>
 
 <script>
+    var email_check = false;
     $('#duplicCheck').click(function () {
+        $('#email_check_txt').html('') ;
         var sEmail = $('input[name=email]').val();
         var sUrl = "/php/emailCheck.php";
         var oData = {email:sEmail};
         postAjax(oData, sUrl, function (result) {
-            console.log(result);
+            if(result==true){
+                $('#email_check_txt').append('사용가능한 아이디입니다') ;
+                email_check = true;
+            }else{
+                $('#email_check_txt').append('이미존재하는 아이디입니다') ;
+            }
         });
     });
 
     $('#join').click(function () {
-        var data = $("#join_form").form('get values');
-        var jsondata = JSON.stringify(data);
-        var sUrl = "/php/join_proc.php";
-        postAjax(jsondata, sUrl, (fSuccess) => {location.href = '/php/loginForm.php'});
+        if(email_check==true){
+            var data = $("#join_form").form('get values');
+            var jsondata = JSON.stringify(data);
+            var sUrl = "/php/join_proc.php";
+            postAjax(jsondata, sUrl, (fSuccess) => {location.href = '/php/loginForm.php'});
+        } else{
+            alert("중복체크를 하지않거나 중복아이디 쓰심");
+        }
     });
 </script>
 <script src="/resource/js/commonAjax.js"></script>
