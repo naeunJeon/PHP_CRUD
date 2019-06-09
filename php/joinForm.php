@@ -46,7 +46,7 @@ include('../php/dbInfo.php');
         var sUrl = "/php/emailCheck.php";
         var oData = {email:sEmail};
         postAjax(oData, sUrl, function (result) {
-            alert(result);
+            console.log(result);
         });
     });
 
